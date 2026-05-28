@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abc.pl - Sklep internetowy</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Modern Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <span class="top-bar-promo">🚚 Darmowa dostawa od 150 zł! • Zwróć produkt do 30 dni</span>
+            <div class="top-bar-links">
+                <a href="#main-footer">Pomoc</a>
+                <a href="#main-footer">Kontakt</a>
+                <span class="top-bar-lang">🇵🇱 PL / PLN</span>
+            </div>
+        </div>
+    </div>
+
+    <header id="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <img src="favicon.svg" alt="abc.pl logo" class="logo-img-header">
+                <span class="logo">abc<span class="logo-accent">.pl</span></span>
+            </a>
+
+            <nav id="header-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-category-link="all">Wszystko</a></li>
+                    <li><a href="#" class="nav-link" data-category-link="electronics">Elektronika</a></li>
+                    <li><a href="#" class="nav-link" data-category-link="clothes">Odzież</a></li>
+                    <li><a href="#" class="nav-link" data-category-link="books">Książki</a></li>
+                </ul>
+            </nav>
+
+            <button id="cart-button">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-text">Koszyk</span>
+                <span id="cart-counter">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="store-hero">
+        <div class="hero-content">
+            <span class="hero-badge">⚡ Wyjątkowa oferta limitowana</span>
+            <h1>Nowoczesny styl, inteligentne rozwiązania</h1>
+            <p>Odkryj wyselekcjonowane produkty premium z darmową dostawą kurierską od 150 zł. Zdobądź dodatkowe zniżki
+                z naszymi kodami promocyjnymi!</p>
+            <div class="hero-btns">
+                <a href="#products-section" class="btn-primary-hero">Przeglądaj produkty</a>
+                <span class="hero-promo-pill">Skorzystaj z kodu: <strong>RABAT10</strong></span>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="visual-card">
+                <span class="visual-icon">🎁</span>
+                <div class="visual-text">
+                    <h4>RABAT10</h4>
+                    <p>Zniżka 10% na wszystko</p>
+                </div>
+            </div>
+            <div class="visual-card">
+                <span class="visual-icon">🔥</span>
+                <div class="visual-text">
+                    <h4>STUDENT50</h4>
+                    <p>Zniżka 50% dla studentów</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="filters-panel">
+            <h2>Filtry</h2>
+
+            <input type="text" id="search-input" placeholder="Szukaj produktu...">
+
+            <select id="category-select">
+                <option value="all">Wszystkie kategorie</option>
+                <option value="electronics">Elektronika</option>
+                <option value="clothes">Odzież</option>
+                <option value="books">Książki</option>
+            </select>
+
+            <div class="price-filter">
+                <label for="price-range">Max cena:</label>
+                <input type="range" id="price-range" min="0" max="1500" value="1500">
+                <span id="price-value">1500 zł</span>
+            </div>
+
+            <div class="sort-buttons">
+                <label>Sortowanie:</label>
+                <button id="sort-asc">Cena: od najtańszego</button>
+                <button id="sort-desc">Cena: od najdroższego</button>
+                <button id="sort-rating">Najlepiej oceniane</button>
+                <button id="sort-alpha">Nazwa: A–Z</button>
+            </div>
+        </section>
+
+        <section id="products-section">
+            <h2>Nasze Produkty</h2>
+            <div id="produkty"></div>
+        </section>
+    </main>
+
+    <aside id="cart-sidebar">
+        <button id="close-cart">&times;</button>
+        <h2>Twój Koszyk</h2>
+
+        <ul id="cart-items"></ul>
+
+        <div class="discount-section">
+            <input type="text" id="coupon-input" placeholder="Kod rabatowy">
+            <button id="apply-discount">Zastosuj</button>
+        </div>
+        <p id="coupon-message"></p>
+
+        <div class="cart-summary-box">
+            <p>Cena bez rabatu: <span id="cart-subtotal">0 zł</span></p>
+            <p>Rabat: <span id="cart-discount">0 zł</span></p>
+            <p class="final-total">Cena finalna: <span id="cart-total">0 zł</span></p>
+        </div>
+    </aside>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>abc.pl</h3>
+                <p>Twój zaufany sklep internetowy z najlepszymi produktami w sieci. Gwarantujemy szybką wysyłkę i
+                    najwyższą jakość obsługi klienta.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon-svg">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon-svg">
+                            <circle cx="12" cy="12" r="10" />
+                            <path
+                                d="M14.25 12h-1.5v5.5H10.5V12h-1v-2h1V8.5c0-1.5 1-2.5 2.5-2.5h1.5v2H13c-.5 0-.75.25-.75.75V10h2l-.25 2z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="X (Twitter)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon-svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" />
+                            <path d="M7 7l5.5 6L7 17h1.8l4.4-4.8 3.8 4.8H20l-5.8-7.2L19.2 7h-1.8L13.4 11.4 10 7H7z"
+                                fill="currentColor" stroke="none" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Kategorie</h4>
+                <ul>
+                    <li><a href="#" data-category-link="all">Wszystkie produkty</a></li>
+                    <li><a href="#" data-category-link="electronics">Elektronika</a></li>
+                    <li><a href="#" data-category-link="clothes">Odzież</a></li>
+                    <li><a href="#" data-category-link="books">Książki</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Pomoc i Informacje</h4>
+                <ul>
+                    <li><a href="#" data-info-link="delivery">Czas i koszty dostawy</a></li>
+                    <li><a href="#" data-info-link="returns">Zwroty i reklamacje</a></li>
+                    <li><a href="#" data-info-link="terms">Regulamin sklepu</a></li>
+                    <li><a href="#" data-info-link="privacy">Polityka prywatności</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li>📧 kontakt@abc.pl</li>
+                    <li>📞 +48 123 456 789</li>
+                    <li>📍 ul. Cyfrowa 12, Warszawa</li>
+                    <li>🕒 Pn - Pt: 8:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 abc.pl. Wszelkie prawa zastrzeżone. Projekt przygotowany na zaliczenie.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
