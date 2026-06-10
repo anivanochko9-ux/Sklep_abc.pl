@@ -1,0 +1,963 @@
+
+/*  1. ZMIENNE (kolory, czcionki, cienie)-----------------------------------------------------------------------------------*/
+:root {
+    --font-heading: 'Plus Jakarta Sans', sans-serif;/* Czcionka nagłówków */
+    --font-body: 'Inter', sans-serif;/* Czcionka tekstu */
+    --primary: #2563eb;/* Główny niebieski */
+    --primary-hover: #1d4ed8;/* Niebieski po najechaniu */
+    --primary-light: #eff6ff;/* Jasnoniebieskie tło */
+    --success: #10b981;/* Zielony (sukces) */
+    --success-light: #ecfdf5;/* Jasnozielone tło */
+    --error: #ef4444;/* Czerwony (błąd) */
+    --error-light: #fef2f2;/* Jasnoczerwone tło */
+    --bg-base: #f8fafc;/* Tło strony */
+    --card-bg: #ffffff;/* Tło kart */
+    --card-border: #f1f5f9;/* Ramka kart */
+    --text-main: #0f172a;/* Główny tekst */
+    --text-muted: #64748b;/* Przyciemniony tekst */
+    --text-light: #94a3b8;/* Jasny tekst */
+    --border-color: #e2e8f0;/* Kolor ramek */
+    --border-focus: #3b82f6;/* Ramka po kliknięciu */
+    /* Zaokrąglenie */
+    --radius-full: 9999px;
+    --radius-xl: 20px;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    /* Cień */
+    --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+    --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    --shadow-xl: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
+    /* Animacja */
+    --transition-fast: 0.15s;
+    --transition-smooth: 0.25s;
+}
+
+/* 2. RESET (usuwa marginesy)-------------------------------------------------------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;/* Płynne przewijanie */
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+/* 3. GÓRNY PASEK----------------------------------------------------------------------------------------------------------*/
+.top-bar {
+    background-color: #0f172a;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    padding: 10px 0;
+    border-bottom: 1px solid #1e293b;
+    font-weight: 500;
+}
+
+.top-bar-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;    /* Rozciąga na boki */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.top-bar-promo {
+    color: #f1f5f9;
+}
+
+.top-bar-links {
+    display: flex;
+    gap: 18px;
+}
+
+.top-bar-links a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.top-bar-links a:hover {
+    color: white;            /* Biały po najechaniu */
+}
+
+.top-bar-lang {
+    border-left: 1px solid #334155;
+    padding-left: 15px;
+}
+
+/* 4. NAGŁÓWEK (sticky)-------------------------------------------------------------------------------------------------------*/
+#main-header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);/* Rozmyte tło */
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    border-bottom: 1px solid rgba(241, 245, 249, 0.8);
+}
+
+.header-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ------------Logo-------------------- */
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img-header {
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+}
+
+.logo-img-header:hover {
+    transform: scale(1.1) rotate(-3deg);
+    transition: transform var(--transition-smooth);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    color: var(--text-main);
+}
+
+.logo-accent {
+    color: var(--primary);/* Niebieska część logo */
+}
+
+/*-------------- Menu -------------------------*/
+#header-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    #header-nav {
+        display: none;/* Ukryj menu na telefonie */
+    }
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 0;
+    position: relative;
+}
+
+/* -----------------Podkreślenie menu------------------------ */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary);
+    transition: width var(--transition-smooth);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;/* Pełne podkreślenie */
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+/*------------------ Przycisk koszyka ---------------------------*/
+#cart-button {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid rgba(37, 99, 235, 0.1);
+    padding: 10px 22px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--transition-smooth);
+}
+
+#cart-button:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);/* Unosi się */
+}
+
+/*--------------- Licznik w koszyku -----------------------------*/
+#cart-counter {
+    background-color: var(--error);
+    color: white;
+    font-size: 0.75rem;
+    min-width: 22px;
+    height: 22px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 5. HERO (baner)-----------------------------------------------------------------------------------------------------*/
+.store-hero {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: var(--radius-xl);
+    padding: 60px;
+    color: white;
+    display: grid;
+    gap: 40px;
+    box-shadow: var(--shadow-xl);
+}
+
+@media (min-width: 992px) {
+    .store-hero {
+        grid-template-columns: 1.3fr 0.7fr;/* Dwie kolumny */
+    }
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.hero-badge {
+    background-color: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    color: #3b82f6;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: var(--radius-full);
+    width: fit-content;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .store-hero {
+        padding: 30px;
+    }
+}
+
+.btn-primary-hero {
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: var(--radius-lg);
+    display: inline-block;
+    transition: all var(--transition-smooth);
+}
+
+.btn-primary-hero:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.visual-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.visual-card:hover {
+    transform: translateX(8px);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* 6. GŁÓWNY LAYOUT--------------------------------------------------------------------------------------------- */
+main {
+    max-width: 1240px;
+    margin: 30px auto 80px;
+    padding: 0 24px;
+    display: grid;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 290px 1fr;/* Filtry + produkty */
+    }
+}
+
+/* 7. PANEL FILTRÓW------------------------------------------------------------------------------------------------ */
+#filters-panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: sticky;/* Przykleja podczas przewijania */
+    top: 100px;
+    height: fit-content;/* Dostosowuje się do zawartości */
+    align-self: start;/* Nie rozciąga się */
+}
+
+@media (max-width: 768px) {
+    #filters-panel {
+        position: static;/* Na telefonie - normalne przewijanie */
+        top: auto;
+    }
+}
+
+/*---------------- Wyszukiwarka ------------------------- */
+#search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: #f8fafc;
+}
+
+#search-input:focus {
+    border-color: var(--border-focus);
+    outline: none;
+}
+
+/*--------- Select kategorii --------------------------*/
+#category-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: #f8fafc;
+    cursor: pointer;
+}
+
+/*------------ Suwak ceny ---------------------------*/
+.price-filter {
+    background-color: #f8fafc;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+}
+
+#price-range {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/*--------- Przyciski sortowania ---------------*/
+.sort-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sort-buttons button {
+    width: 100%;
+    padding: 10px 14px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sort-buttons button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 8. PRODUKTY (siatka kart)--------------------------------------------------------------------------------------- */
+#produkty {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 24px;
+}
+
+/*--------- Karta produktu -------------*/
+.product-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    cursor: pointer;
+    transition: transform var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/*------- Obrazek (emotka) ---------*/
+.product-img {
+    height: 160px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+}
+
+/*------- Kategoria ---------------*/
+.product-category {
+    font-size: 0.72rem;
+    color: var(--primary);
+    background-color: var(--primary-light);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    width: fit-content;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/*--------- Nazwa ---------------*/
+.product-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/*------ Ocena (gwiazdki) ------*/
+.product-rating {
+    font-size: 0.82rem;
+    color: #b45309;
+    background-color: #fef3c7;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+/*------- Cena ---------------*/
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: auto;
+    margin-bottom: 16px;
+}
+
+/*----- Przycisk dodaj do koszyka ------*/
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: auto;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* 9. KOSZYK (sidebar z prawej) */
+#cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 440px;
+    height: 100vh;
+    background-color: var(--card-bg);
+    padding: 30px;
+    transform: translateX(110%);
+    /* Ukryty */
+    transition: transform 0.4s;
+    z-index: 1000;
+    display: flex;
+    /* ← DODAJ */
+    flex-direction: column;
+    /* ← DODAJ */
+}
+
+#cart-sidebar.open {
+    transform: translateX(0);
+    /* Widoczny */
+}
+
+/*------ Przycisk zamykania ----------*/
+#close-cart {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+#close-cart:hover {
+    background-color: var(--error-light);
+    color: var(--error);
+    transform: rotate(90deg);
+}
+
+/*----------- Lista w koszyku --------*/
+#cart-items {
+    list-style: none;
+    flex-grow: 1;
+    /* Zajmuje wolne miejsce */
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+/*------- Produkt w koszyku ----------*/
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--card-border);
+    gap: 12px;
+}
+
+/*------- Przyciski + i - --------------*/
+.qty-change-btn {
+    width: 26px;
+    height: 26px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.qty-change-btn:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/*--------- Przycisk usuwania X ---------*/
+.cart-remove-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.cart-remove-btn:hover {
+    color: var(--error);
+}
+
+/* 10. KOD RABATOWY ------------------------------------------------------------------------------------------------------------------------------------*/
+.discount-section {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+
+/* Przycisk Kupuję i płacę */
+.checkout-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--success);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    margin-top: 15px;
+}
+
+.checkout-btn:hover {
+    background-color: #0d9488;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(16, 185, 129, 0.4);
+}
+
+.checkout-btn:active {
+    transform: translateY(0);
+}
+
+
+.discount-section {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+#coupon-input {
+    flex-grow: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+#apply-discount {
+    padding: 10px 18px;
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+#apply-discount:hover {
+    background-color: var(--primary);
+}
+
+/*--------- Komunikaty -----------*/
+#coupon-message.success-msg {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+#coupon-message.error-msg {
+    background-color: var(--error-light);
+    color: var(--error);
+}
+
+/*----- Podsumowanie cen ---------*/
+.cart-summary-box {
+    margin-top: 20px;
+    background-color: var(--bg-base);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+}
+
+.final-total span {
+    color: var(--primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+/* 11. STOPKA--------------------------------------------------------------------------------------------------------------- */
+
+#main-footer {
+    background: #0f172a;
+    color: #cbd5e1;
+    padding: 70px 0 30px;
+    margin-top: 10px;
+    border-top: 1px solid #1e293b;
+}
+
+.footer-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    gap: 40px;
+}
+
+@media (min-width: 576px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .footer-container {
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    }
+}
+
+/* Lewa kolumna z logo i opisem */
+.footer-info h3 {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-size: 1.9rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+}
+
+.footer-info p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    color: #94a3b8;
+}
+
+/* Ikony społecznościowe */
+.footer-socials {
+    display: flex;
+    gap: 14px;
+}
+
+.social-link {
+    color: #94a3b8;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid #2d3748;
+    background: #1a202c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-smooth);
+}
+
+.social-link:hover {
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.social-icon-svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Nagłówki kolumn */
+.footer-links h4,
+.footer-contact h4 {
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+/* Podkreślenie pod nagłówkami */
+.footer-links h4::after,
+.footer-contact h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: var(--radius-full);
+}
+
+/* Listy w stopce */
+.footer-links ul,
+.footer-contact ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: #fff;
+    padding-left: 6px;
+}
+
+.footer-contact li {
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+
+/* Dolny pasek */
+.footer-bottom {
+    max-width: 1240px;
+    margin: 50px auto 0;
+    padding: 25px 24px 0;
+    border-top: 1px solid #1e293b;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+
+/* 12. ANIMACJE I DODATKA------------------------------------------------------------------------------------------------- */
+
+/*--------- Latająca emotka ------------*/
+.flying-particle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.8rem;
+    transition: transform 0.8s, opacity 0.8s;
+    z-index: 2500;
+}
+
+/*------- Powiadomienie toast ----------*/
+.toast-notice {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 50px);
+    opacity: 0;
+    background-color: #0f172a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    transition: all 0.35s;
+}
+
+.toast-notice.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+/*----- Brak wyników --------*/
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border-color);
+}
+
+
+
+/* 13. Modal - styl dla okna szczegółów produktu -------------------------------------------------------------------------------------------------------------------*/
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--card-border);
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+}
+
+#close-modal:hover {
+    color: var(--error);
+    transform: scale(1.1);
+}
+
+.modal-product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    background-color: var(--bg-base);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    margin: 5px 0;
+}
+
+.modal-price {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-align: center;
+}
+
+.modal-add-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: 10px;
+}
+
+.modal-add-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
