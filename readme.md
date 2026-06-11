@@ -26,7 +26,7 @@
 
 ---
 
-## Część 2: Architektura kodu (Ściąga na obronę projektu)
+## Część 2: Architektura kodu 
 
 _Ta część pomoże Ci płynnie wytłumaczyć prowadzącemu, jak Twój kod działa "pod maską"._
 
